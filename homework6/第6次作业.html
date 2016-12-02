@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+	<title></title>
+	<style type="text/css">
+		*{margin: 0;padding: 0;text-decoration: none}
+		body{padding: 50px;}
+		#container{width: 800px;height: 500px;border: 5px dotted #ffcc33;overflow: hidden;position: relative;}
+		#list{width: 500px;height: 800px;position: absolute; z-index: 1}
+		#list img{float: left;}
+		#buttons{position: absolute;height: 8px;width: 20px;z-index: 2;bottom: 5px;left: 200px;top: 400px;}
+		#buttons span{cursor: pointer;float: left;border: 2px solid #666666;width: 10px;height: 10px;border-radius: 40%;background: #333:margin-right:3px;}
+		#buttons.on{background: red;}
+		.arrow{cursor: pointer;display: none;line-height: 50px;text-align: center;font-size: 40px;font-weight:bolder;width: 50px;height: 50px;position: absolute;z-index: 2;top: 200px;background-color:rgba(0,0,0,o.2);color: #fff  }
+		.arrowhover{background-color: rgba(0,0,0,0.7);}
+		#containerhover.arrow{display: block;}
+		#prev{left: 30px;}
+		#next{right: 30px}
+	</style>
+	<script type="text/javascript">
+		window.onload=function(){
+			var container=document.getElementByID('container');
+			var list=document.getElementByID('list')
+			var buttons=document.getElementByID('buttons').getElementsByTagName('span');
+			var prev=document.getElementByID('prev');
+			var next=document.getElementByID('next');
+			var index=1;
+			function showbButton(){
+				for (var i = 0; i < buttons.length; i++) {
+					if(buttons[i].className=='on'){
+						buttons[i].className='';
+						break;
+					}
+				}
+				buttons[index-1].className='on';
+			}
+			function animate(offset){
+				animated=true;
+				var newLeft=parseInt(list.style.left)+offset;
+				var time=200;
+				var interval=10;
+				var speed=offset/(time/interval);
+				var animated=fause;
+				function go(){
+					if ((speed<0&&parseInt(list.style.left)>newLeft) ||(speed>0&&parseInt(list.style.left)<newLeft{
+						list.style.left=parseInt(list.style.left)+speed+'px';
+						setTimeout(go,interval);
+					}
+
+					else{
+						animated=fause;
+						list.style.left=newLeft+'px';
+						if (newLeft>-500) {list.style.left=-3000+'px';}
+			if (newLeft<-3000) {list.style.left=-500+'px';}	
+					}
+					}
+				}
+				list.style.left=parseInt(list.style.left)+offset+'px';
+			}
+
+
+			if (newLeft>-500) {list.style.left=-3000+'px';}
+			if (newLeft<-3000) {list.style.left=-500+'px';}	
+			next.onlick=function(){
+				if (index==6) {
+					index=1;
+				}
+				else{
+					index+=1;
+				}
+				
+				showbButton();
+				if (animated==fause) {
+				animate(-500);
+			}
+			}
+			prev.onlick=function(){
+				if (index==1) {
+					index=6;
+				}
+				else{
+					index-=1;
+				}
+				showbButton();
+				if (animated==fause){
+				animate(600);
+			}
+			}
+			for (var i = 0; i < buttons.length; i++) {
+					buttons[i].onclick=function(){
+						if (this.className=='on') {
+							return;
+						}
+						var myIndex=this.getAttribute('index');
+						var offset=-500*(myIndex-index);
+						
+						index=myIndex;
+						showbButton();
+						if (animated==fause){
+							animate(offset);
+						}
+					}
+				}	
+		}
+	</script>
+</head>
+<body>
+  <div id="container">
+    <div id="list" style="left:-500px;">
+      <img src="img_040.jpg" alt="6">
+      <img src="img_035.jpg" alt="1">
+      <img src="img_036.jpg" alt="2">
+      <img src="img_037.jpg" alt="3">
+      <img src="img_038.jpg" alt="4">
+      <img src="img_039.jpg" alt="5">
+      <img src="img_040.jpg" alt="6">
+      <img src="img_035.jpg" alt="1">
+    	
+    </div>
+  	<div id="buttons">
+      <span index="1"class></span>
+      <span index="2"class></span>
+  	  <span index="3"class></span>
+  	  <span index="4"class></span>
+  	  <span index="5"class></span>
+  	  <span index="6"class></span>
+  	</div>
+    <a href="javascript:;" id="prev" class="arrow"></a>
+    <a href="javascript:;" id="next" class="arrow"></a>
+  </div>  
+
+</body>
+</html>
